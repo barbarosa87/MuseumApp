@@ -20,7 +20,7 @@ import rx.schedulers.Schedulers;
 public class RetrofitManager {
 
 
-    private static final String API_URL = "192.168.1.6:8080/";
+    private static final String API_URL = "http://192.168.1.6:8080/";
     private static final String TAG = "RetrofitManager";
     private Context context;
     /*private Handler handler;*/

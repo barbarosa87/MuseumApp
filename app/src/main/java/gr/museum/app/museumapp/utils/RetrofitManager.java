@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import gr.museum.app.museumapp.interfaces.SignUp;
+import gr.museum.app.museumapp.interfaces.getMuseums;
 import gr.museum.app.museumapp.interfaces.login;
 import gr.museum.app.museumapp.objects.LoginObj;
+import gr.museum.app.museumapp.objects.MuseumObj;
 import gr.museum.app.museumapp.objects.UserObj;
 import rx.Observable;
 import rx.Observer;
@@ -60,6 +62,16 @@ public class RetrofitManager {
         Observable<UserObj> call = signUpClient.SIGN_UP(name, surname, country, address, phone, mobilephone, email, username, password);
 
       /*  Observable<UserObj> call=editTeamClient.EDIT_PROFILE(userID, token, username, email, mobile, first_name, lastname);*/
+
+        subscribeObservable(call);
+
+    }
+
+    public void getMuseums() {
+        getMuseums getMuseumsClient = ServiceGenerator.createServiceRxAndroid(getMuseums.class, API_URL);
+
+
+        Observable<ArrayList<MuseumObj>> call = getMuseumsClient.MUSEUMS();
 
         subscribeObservable(call);
 

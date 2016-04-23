@@ -95,18 +95,6 @@ public class UserObj {
         this.password = password;
     }
 
-    @Override
-    public String toString(){
-        return new StringBuffer(" id : ").append(this.id)
-                .append(" name :  ").append(this.name)
-                .append(" surname : ").append(this.surname)
-                .append(" country : ").append(this.country)
-                .append(" address : ").append(this.address)
-                .append(" phone : ").append(this.phone)
-                .append(" mobilePhone : ").append(this.mobilePhone)
-                .append(" email : ").append(this.email)
-                .append(" username : ").append(this.username)
-                .append(" password : ").append(this.password).toString();
-    }
+
 }
 

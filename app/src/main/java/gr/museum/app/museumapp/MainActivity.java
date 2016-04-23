@@ -3,6 +3,7 @@ package gr.museum.app.museumapp;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -14,13 +15,23 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.ArrayList;
+
 import gr.museum.app.museumapp.objects.LoginObj;
+import gr.museum.app.museumapp.objects.MuseumObj;
 import gr.museum.app.museumapp.utils.RetrofitManager;
 import rx.Observer;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-
+        implements NavigationView.OnNavigationItemSelectedListener,OnMapReadyCallback{
+    public ArrayList<MuseumObj> storedMuseums= new ArrayList<MuseumObj>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,14 +39,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -45,7 +49,14 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        
+
+
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+
     }
 
 
@@ -105,5 +116,40 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    private void getMuseums(final GoogleMap map) {
+        final Observer<ArrayList<MuseumObj>> MuseumObjObserver = new Observer<ArrayList<MuseumObj>>() {
+
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(ArrayList<MuseumObj> museumObj) {
+                storedMuseums=museumObj;
+                for(MuseumObj museum:storedMuseums) {
+                    map.addMarker(new MarkerOptions()
+                            .position(new LatLng(Double.parseDouble(museum.getLatitude()), Double.parseDouble(museum.getLongitude())))
+                            .title(museum.getName().toString()));
+                }
+            }
+        };
+        new RetrofitManager(getApplicationContext(),MuseumObjObserver).getMuseums();
+    }
+    @Override
+    public void onMapReady(GoogleMap map) {
+
+
+    getMuseums(map);
+
+
+
+
     }
 }

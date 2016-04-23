@@ -32,6 +32,14 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_sign_up"
             android:theme="@style/FullscreenTheme"></activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAT9yeTUb3SiyP-fEv9UGmnVb8YzCZIjjU"/>
     </application>
 
 </manifest>

@@ -23,4 +23,8 @@
     <string name="title_activity_sign_up">SignUpActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+
+
+    <string name="estimote_appID">chr-alexan-yahoo-gr-s-your-261</string>
+    <string name="estimote_token">99f08fe58e1016b313af2d07d6565c3d</string>
 </resources>

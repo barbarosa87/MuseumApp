@@ -17,6 +17,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.estimote.sdk.EstimoteSDK;
+import com.estimote.sdk.SystemRequirementsChecker;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity
     public ArrayList<MuseumObj> storedMuseums = new ArrayList<MuseumObj>();
     private RecyclerView recyclerView;
     private MuseumRecyclerViewAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +73,29 @@ public class MainActivity extends AppCompatActivity
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
+
+        EstimoteSDK.initialize(getApplicationContext(), getResources().getString(R.string.estimote_appID),getResources().getString(R.string.estimote_token));
+
+
+
+
+
+
     }
 
+
+
+
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        SystemRequirementsChecker.checkWithDefaultDialogs(this);
+    }
 
     @Override
     public void onBackPressed() {

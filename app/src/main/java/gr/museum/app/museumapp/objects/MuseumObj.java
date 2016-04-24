@@ -1,9 +1,11 @@
 package gr.museum.app.museumapp.objects;
 
+import java.io.Serializable;
+
 /**
  * Created by ChrisVaio on 23/4/2016.
  */
-public class MuseumObj {
+public class MuseumObj implements Serializable {
     private int id;
     private String name="";
     private String address="";

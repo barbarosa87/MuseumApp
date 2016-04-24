@@ -1,6 +1,7 @@
 package gr.museum.app.museumapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 import gr.museum.app.museumapp.R;
+import gr.museum.app.museumapp.ShowMuseum;
 import gr.museum.app.museumapp.objects.MuseumObj;
 
 /**
@@ -44,10 +46,18 @@ public class MuseumRecyclerViewAdapter extends RecyclerView.Adapter<MuseumRecycl
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         Glide.with(context).load(museumObjArrayList.get(position).getPicture1()).into(holder.museumImage);
         holder.museumTitle.setText(museumObjArrayList.get(position).getName());
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(context, ShowMuseum.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("key",museumObjArrayList.get(position));
+        context.startActivity(intent);
+    }
+});
     }
 
     @Override

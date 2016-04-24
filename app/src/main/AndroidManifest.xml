@@ -33,6 +33,12 @@
             android:label="@string/title_activity_sign_up"
             android:theme="@style/FullscreenTheme"></activity>
 
+        <activity
+            android:name=".ShowMuseum"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="museum"
+            android:theme="@style/FullscreenTheme"></activity>
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

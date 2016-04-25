@@ -68,6 +68,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
     private Button signUpBtn;
+    private MyApplication app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +77,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Set up the login form.
         mUsernameView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
-
+        app = (MyApplication) getApplication();
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -99,14 +100,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
-        signUpBtn=(Button)findViewById(R.id.signUpBtn);
+        signUpBtn = (Button) findViewById(R.id.signUpBtn);
         signUpBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(LoginActivity.this,SignUpActivity.class);
+                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(intent);
             }
         });
+        if(app.isUserLogedIn()){
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private void populateAutoComplete() {
@@ -199,14 +205,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
          /*   mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);*/
 
-        Login(mUsernameView.getText().toString(),mPasswordView.getText().toString());
-
+            Login(mUsernameView.getText().toString(), mPasswordView.getText().toString());
 
 
         }
     }
 
-    private void Login(String username, String password) {
+    private void Login(final String username, final String password) {
         Observer<LoginObj> loginObjObserver = new Observer<LoginObj>() {
             @Override
             public void onCompleted() {
@@ -221,16 +226,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onNext(LoginObj loginObj) {
                 showProgress(false);
-                if (loginObj.getStatus().equals("success")){
+                if (loginObj.getStatus().equals("success")) {
                    /* AlertDialog.Builder builder =
                             new AlertDialog.Builder(LoginActivity.this);
                     builder.setTitle("Login Successful");
                     builder.setMessage("Login Successful");
                     builder.setPositiveButton("OK", null);
                     builder.show();*/
-                    Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+
+                    app.saveLogin(username, password);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
-                }else{
+                } else {
                     AlertDialog.Builder builder =
                             new AlertDialog.Builder(LoginActivity.this);
                     builder.setTitle("Login Failed");
@@ -241,7 +248,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         };
 
-        new RetrofitManager(getApplicationContext(),loginObjObserver).login(username,password);
+        new RetrofitManager(getApplicationContext(), loginObjObserver).login(username, password);
 
     }
 
@@ -254,7 +261,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
         //return password.length() > 4;
-        return  true;
+        return true;
     }
 
     /**

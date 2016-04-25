@@ -11,7 +11,9 @@
     android:orientation="vertical"
     tools:context="gr.museum.app.museumapp.SignUpActivity">
 
-
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <EditText
         android:layout_width="match_parent"
@@ -21,7 +23,12 @@
         android:ems="10"
         android:id="@+id/nameTxt"
         android:layout_weight="1" />
+</android.support.design.widget.TextInputLayout>
 
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,14 +37,22 @@
         android:ems="10"
         android:id="@+id/surnameTxt"
         android:layout_weight="1" />
+</android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/countryTxt"
         android:layout_weight="1"
         android:hint="Country" />
+</android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,7 +61,11 @@
         android:id="@+id/addressTxt"
         android:layout_weight="1"
         android:hint="Address" />
+</android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -56,7 +75,11 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
         android:hint="Phone" />
+</android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -65,7 +88,11 @@
         android:id="@+id/mobilePhoneTxt"
         android:layout_weight="1"
         android:hint="Mobile Phone" />
+</android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,7 +101,11 @@
         android:id="@+id/emailTxt"
         android:layout_weight="1"
         android:hint="Email" />
+</android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -82,7 +113,11 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
         android:hint="Username" />
+</android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -91,7 +126,7 @@
         android:id="@+id/passwordTxt"
         android:layout_weight="1"
         android:hint="Password" />
-
+</android.support.design.widget.TextInputLayout>
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"

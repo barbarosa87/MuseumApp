@@ -3,13 +3,12 @@ package gr.museum.app.museumapp.utils;
 import android.content.Context;
 
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 import gr.museum.app.museumapp.interfaces.SignUp;
-import gr.museum.app.museumapp.interfaces.getMuseums;
+import gr.museum.app.museumapp.interfaces.getSites;
 import gr.museum.app.museumapp.interfaces.login;
 import gr.museum.app.museumapp.objects.LoginObj;
-import gr.museum.app.museumapp.objects.MuseumObj;
+import gr.museum.app.museumapp.objects.SiteObj;
 import gr.museum.app.museumapp.objects.UserObj;
 import rx.Observable;
 import rx.Observer;
@@ -69,10 +68,10 @@ public class RetrofitManager {
     }
 
     public void getMuseums() {
-        getMuseums getMuseumsClient = ServiceGenerator.createServiceRxAndroid(getMuseums.class, API_URL);
+        getSites getSitesClient = ServiceGenerator.createServiceRxAndroid(getSites.class, API_URL);
 
 
-        Observable<ArrayList<MuseumObj>> call = getMuseumsClient.MUSEUMS();
+        Observable<ArrayList<SiteObj>> call = getSitesClient.SITES();
 
         subscribeObservable(call);
 

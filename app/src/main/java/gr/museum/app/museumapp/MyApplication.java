@@ -41,6 +41,15 @@ public class MyApplication extends Application {
         editor.apply();
     }
 
+    public void logOut (){
+        SharedPreferences settings;
+        settings = getSharedPreferences("MUSEUM_APP", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("username", null);
+        editor.putString("password", null);
+        editor.apply();
+    }
+
     public boolean isUserLogedIn(){
         SharedPreferences settings;
         settings = getSharedPreferences("MUSEUM_APP", Context.MODE_PRIVATE);

@@ -28,6 +28,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -69,6 +70,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
     private Button signUpBtn;
     private MyApplication app;
+    private CheckBox rememberMeChkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +115,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             startActivity(intent);
             finish();
         }
+        rememberMeChkBox=(CheckBox) findViewById(R.id.rememberMeChkBox);
     }
 
     private void populateAutoComplete() {
@@ -233,8 +236,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     builder.setMessage("Login Successful");
                     builder.setPositiveButton("OK", null);
                     builder.show();*/
-
-                    app.saveLogin(username, password);
+                    if (rememberMeChkBox.isChecked()){
+                    app.saveLogin(username, password);}
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                 } else {

@@ -14,7 +14,7 @@
 <ImageView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/museumImage"
+    android:id="@+id/siteImage"
     android:adjustViewBounds="true"
     android:scaleType="fitXY"/>
 <TextView
@@ -24,6 +24,12 @@
     android:layout_gravity="bottom|left"
     android:textSize="20sp"
     android:textColor="@android:color/white"/>
+<Button
+    android:id="@+id/beaconButton"
+    android:layout_width="70dp"
+    android:layout_height="wrap_content"
+    android:text="Beacon Enabled!"
+    android:visibility="gone"/>
 
 
     </FrameLayout>

@@ -1,13 +1,9 @@
 package gr.museum.app.museumapp;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -20,7 +16,6 @@ import android.view.MenuItem;
 import com.estimote.sdk.EstimoteSDK;
 import com.estimote.sdk.SystemRequirementsChecker;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -28,18 +23,18 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 
-import gr.museum.app.museumapp.adapters.MuseumRecyclerViewAdapter;
-import gr.museum.app.museumapp.objects.LoginObj;
-import gr.museum.app.museumapp.objects.MuseumObj;
+import gr.museum.app.museumapp.adapters.SiteRecyclerViewAdapter;
+import gr.museum.app.museumapp.objects.SiteObj;
 import gr.museum.app.museumapp.utils.RetrofitManager;
 import rx.Observer;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
-    public ArrayList<MuseumObj> storedMuseums = new ArrayList<MuseumObj>();
+    public ArrayList<SiteObj> storedSites = new ArrayList<SiteObj>();
     private RecyclerView recyclerView;
-    private MuseumRecyclerViewAdapter adapter;
+    private SiteRecyclerViewAdapter adapter;
+    private MyApplication app;
 
 
     @Override
@@ -49,7 +44,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        app = (MyApplication) getApplication();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -60,12 +55,10 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-
-
         recyclerView = (RecyclerView) findViewById(R.id.mainRecycler);
 
-        adapter=new MuseumRecyclerViewAdapter(new ArrayList<MuseumObj>(),getApplicationContext());
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getApplicationContext());
+        adapter = new SiteRecyclerViewAdapter(new ArrayList<SiteObj>(), getApplicationContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setItemAnimator(new jp.wasabeef.recyclerview.animators.SlideInUpAnimator());
         recyclerView.setAdapter(adapter);
@@ -75,19 +68,10 @@ public class MainActivity extends AppCompatActivity
         mapFragment.getMapAsync(this);
 
 
-
-        EstimoteSDK.initialize(getApplicationContext(), getResources().getString(R.string.estimote_appID),getResources().getString(R.string.estimote_token));
-
-
-
-
+        EstimoteSDK.initialize(getApplicationContext(), getResources().getString(R.string.estimote_appID), getResources().getString(R.string.estimote_token));
 
 
     }
-
-
-
-
 
 
     @Override
@@ -123,6 +107,9 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            app.logOut();
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
             return true;
         }
 
@@ -155,7 +142,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void getMuseums(final GoogleMap map) {
-        final Observer<ArrayList<MuseumObj>> MuseumObjObserver = new Observer<ArrayList<MuseumObj>>() {
+        final Observer<ArrayList<SiteObj>> MuseumObjObserver = new Observer<ArrayList<SiteObj>>() {
 
             @Override
             public void onCompleted() {
@@ -168,16 +155,16 @@ public class MainActivity extends AppCompatActivity
             }
 
             @Override
-            public void onNext(ArrayList<MuseumObj> museumObj) {
-                storedMuseums = museumObj;
-                for (MuseumObj museum : storedMuseums) {
+            public void onNext(ArrayList<SiteObj> museumObj) {
+                storedSites = museumObj;
+                for (SiteObj museum : storedSites) {
                     map.addMarker(new MarkerOptions()
                             .position(new LatLng(Double.parseDouble(museum.getLatitude()), Double.parseDouble(museum.getLongitude())))
                             .title(museum.getName().toString()));
-                    adapter.insert(museum,adapter.getItemCount());
+                    adapter.insert(museum, adapter.getItemCount());
                 }
 
-              /*  MuseumRecyclerViewAdapter adapter=new MuseumRecyclerViewAdapter(storedMuseums,getApplicationContext());
+              /*  SiteRecyclerViewAdapter adapter=new SiteRecyclerViewAdapter(storedSites,getApplicationContext());
                 LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getApplicationContext());
                 recyclerView.setLayoutManager(linearLayoutManager);
                 recyclerView.setAdapter(adapter);*/

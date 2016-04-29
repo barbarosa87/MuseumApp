@@ -40,7 +40,7 @@
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
-            android:name=".ShowMuseum"
+            android:name=".ShowSite"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="museum"
             android:screenOrientation="portrait"
@@ -52,7 +52,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAT9yeTUb3SiyP-fEv9UGmnVb8YzCZIjjU"/>
+            android:value="AIzaSyCPLaRUxMa9PoxKo4nU3niPYCf4S6Ou95w"/>
     </application>
 
 </manifest>

@@ -26,11 +26,18 @@
     android:textColor="@android:color/white"/>
 <Button
     android:id="@+id/beaconButton"
-    android:layout_width="70dp"
+    android:layout_width="100dp"
     android:layout_height="wrap_content"
+    android:layout_gravity="bottom|right"
     android:text="Beacon Enabled!"
+    android:background="@android:color/holo_green_light"
     android:visibility="gone"/>
-
+<ImageButton
+    android:id="@+id/favoriteButton"
+    android:layout_width="50dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="top|right"
+    android:src="@drawable/ic_star_border_black_24dp" />
 
     </FrameLayout>
 

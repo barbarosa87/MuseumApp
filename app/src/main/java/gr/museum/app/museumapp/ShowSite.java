@@ -19,7 +19,7 @@ public class ShowSite extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.show_museum);
+        setContentView(R.layout.show_site);
         SiteObj museum = (SiteObj) getIntent().getSerializableExtra("key");
         ArrayList<String> sitePhoto = new ArrayList<String>();
         sitePhoto.add(museum.getPicture1());
@@ -34,7 +34,7 @@ public class ShowSite extends AppCompatActivity {
 
         SitePhotoViewPagerAdapter sitePhotoViewPagerAdapter = new SitePhotoViewPagerAdapter(getApplicationContext(), sitePhoto);
         viewpager.setAdapter(sitePhotoViewPagerAdapter);
-        /*textView.setText(museum.getInformation());*/
+        /*textView.setText(siteObj.getInformation());*/
         webview.loadData(museum.getInformation(),"text/html",null);
 
     }

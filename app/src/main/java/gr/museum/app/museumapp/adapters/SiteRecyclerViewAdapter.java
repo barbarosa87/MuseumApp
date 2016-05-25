@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,8 +16,10 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 import gr.museum.app.museumapp.R;
+import gr.museum.app.museumapp.ShowExhibitInfo;
 import gr.museum.app.museumapp.ShowSite;
 import gr.museum.app.museumapp.objects.SiteObj;
+import gr.museum.app.museumapp.utils.Statics;
 
 /**
  * Created by barbarosa on 24/4/2016.
@@ -25,6 +28,7 @@ public class SiteRecyclerViewAdapter extends RecyclerView.Adapter<SiteRecyclerVi
 
     private ArrayList<SiteObj> siteObjArrayList;
     private Context context;
+
 
     public SiteRecyclerViewAdapter(ArrayList<SiteObj> siteObjArrayList, Context context) {
         this.siteObjArrayList = siteObjArrayList;
@@ -46,10 +50,20 @@ public class SiteRecyclerViewAdapter extends RecyclerView.Adapter<SiteRecyclerVi
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         Glide.with(context).load(siteObjArrayList.get(position).getPicture1()).into(holder.museumImage);
+        holder.beaconButton.setVisibility(View.GONE);
         if (siteObjArrayList.get(position).isBeaconEnabled()){
             holder.beaconButton.setVisibility(View.VISIBLE);
+            holder.beaconButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ShowExhibitInfo.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("key",siteObjArrayList.get(position));
+                    context.startActivity(intent);
+                }
+            });
         }
         holder.museumTitle.setText(siteObjArrayList.get(position).getName());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +73,26 @@ public class SiteRecyclerViewAdapter extends RecyclerView.Adapter<SiteRecyclerVi
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("key", siteObjArrayList.get(position));
                 context.startActivity(intent);
+            }
+        });
+        if (Statics.isFavorite(context, siteObjArrayList.get(position).getName())){
+            holder.favoriteButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_star_black_24dp));
+        }
+        else {
+            holder.favoriteButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_star_border_black_24dp));
+        }
+        holder.favoriteButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                if(Statics.isFavorite(context, siteObjArrayList.get(position).getName())){
+                    Statics.removeFavoriteNew(context, siteObjArrayList.get(position));
+                    holder.favoriteButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_star_border_black_24dp));
+                }
+                else {
+                    Statics.saveSite(context, siteObjArrayList.get(position));
+                    holder.favoriteButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_star_black_24dp));
+                }
             }
         });
 
@@ -76,12 +110,14 @@ public class SiteRecyclerViewAdapter extends RecyclerView.Adapter<SiteRecyclerVi
         private ImageView museumImage;
         private TextView museumTitle;
         private Button beaconButton;
+        private ImageButton favoriteButton;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             museumImage = (ImageView) itemView.findViewById(R.id.siteImage);
             museumTitle = (TextView) itemView.findViewById(R.id.museumTitleTxt);
             beaconButton = (Button) itemView.findViewById(R.id.beaconButton);
+            favoriteButton = (ImageButton) itemView.findViewById(R.id.favoriteButton);
 
         }
     }

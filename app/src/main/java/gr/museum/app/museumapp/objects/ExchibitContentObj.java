@@ -7,9 +7,8 @@ import java.io.Serializable;
  */
 public class ExchibitContentObj implements Serializable {
     private int id;
-    private String video;
-    private String audio;
-    private String picture;
+    private String type;
+    private String path;
 
     public int getId() {
         return id;
@@ -19,28 +18,19 @@ public class ExchibitContentObj implements Serializable {
         this.id = id;
     }
 
-    public String getVideo() {
-        return video;
+    public String getType() {
+        return type;
     }
 
-    public void setVideo(String video) {
-        this.video = video;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getAudio() {
-        return audio;
+    public String getPath() {
+        return path;
     }
 
-    public void setAudio(String audio) {
-        this.audio = audio;
+    public void setPath(String path) {
+        this.path = path;
     }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
-
 }

@@ -18,6 +18,7 @@ public class SiteObj implements Serializable {
     private String picture1 = "";
     private String picture2 = "";
     private String picture3 = "";
+    private String beacon_uuid="";
 
     ArrayList<ExhibitObj> exhibits = new ArrayList<ExhibitObj>();
 
@@ -117,6 +118,13 @@ public class SiteObj implements Serializable {
         this.picture3 = picture3;
     }
 
+    public String getBeacon_uuid() {
+        return beacon_uuid;
+    }
+
+    public void setBeacon_uuid(String beacon_uuid) {
+        this.beacon_uuid = beacon_uuid;
+    }
 
     public boolean isBeaconEnabled(){
         if (beacon_enabled.equals("0")){

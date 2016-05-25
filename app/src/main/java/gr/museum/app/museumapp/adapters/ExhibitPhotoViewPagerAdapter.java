@@ -13,19 +13,20 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 import gr.museum.app.museumapp.R;
-import gr.museum.app.museumapp.objects.SiteObj;
+import gr.museum.app.museumapp.objects.ExchibitContentObj;
+import gr.museum.app.museumapp.objects.ExhibitObj;
+
 
 /**
- * Created by ChrisVaio on 4/27/2016.
+ * Created by ChrisVaio on 14-May-16.
  */
-public class SitePhotoViewPagerAdapter extends PagerAdapter {
-
+public class ExhibitPhotoViewPagerAdapter extends PagerAdapter {
     private Context mContext;
     private LayoutInflater mLayoutInflater;
-    ArrayList<SiteObj> siteObjArrayList;
-    ArrayList<String> photoList;
+    ArrayList<ExhibitObj> exhibitObjArrayList;
+    ArrayList<ExchibitContentObj> photoList;
 
-    public SitePhotoViewPagerAdapter(Context context, ArrayList<String> photoList) {
+    public ExhibitPhotoViewPagerAdapter(Context context, ArrayList<ExchibitContentObj> photoList) {
         mContext = context;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.photoList = photoList;
@@ -44,18 +45,16 @@ public class SitePhotoViewPagerAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-
         return view == object;
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        LinearLayout linearLayout = (LinearLayout) mLayoutInflater.inflate(R.layout.site_photo_slide,container,false);
+        LinearLayout linearLayout = (LinearLayout) mLayoutInflater.inflate(R.layout.exhibit_photo_slide, container, false);
 
-        ImageView siteImage = (ImageView) linearLayout.findViewById(R.id.siteImage);
-        Glide.with(mContext).load(photoList.get(position)).into(siteImage);
+        ImageView exhibitImage = (ImageView) linearLayout.findViewById(R.id.exhibitImage);
+        Glide.with(mContext).load(photoList.get(position).getPath()).into(exhibitImage);
         container.addView(linearLayout);
         return linearLayout;
-
     }
 }

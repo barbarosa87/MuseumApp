@@ -8,19 +8,20 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <application
-    android:allowBackup="true"
-    android:icon="@mipmap/museum"
-    android:label="@string/app_name"
-    android:supportsRtl="true"
-    android:name=".MyApplication"
-    android:theme="@style/AppTheme">
-
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/museum"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
@@ -37,22 +38,22 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_sign_up"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ShowSite"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="museum"
             android:screenOrientation="portrait"
-            android:theme="@style/FullscreenTheme"/>
+            android:theme="@style/FullscreenTheme" />
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCPLaRUxMa9PoxKo4nU3niPYCf4S6Ou95w"/>
+            android:value="AIzaSyCPLaRUxMa9PoxKo4nU3niPYCf4S6Ou95w" />
+
+        <activity android:name=".ShowExhibitInfo"></activity>
     </application>
 
 </manifest>
